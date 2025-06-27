@@ -51,7 +51,7 @@ for pagina in range(1, ultima_pagina + 1):
 driver.quit()
 
 # Criando local final do arquivo
-pasta_documentos = os.path.join(os.path.expanduser("~"), "Documents", "Projeto Web Scraping", "Documentos")
+pasta_documentos = os.path.join(os.path.expanduser("~"), "Documents", "Projeto Web Scraping")
 os.makedirs(pasta_documentos, exist_ok=True)
 caminho_txt = os.path.join(pasta_documentos, "preco_GPU_nvidea.txt")
 
