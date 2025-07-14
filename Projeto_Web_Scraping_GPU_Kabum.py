@@ -5,6 +5,8 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Configuração do driver
 service = Service()
@@ -15,8 +17,9 @@ driver = webdriver.Chrome(service=service, options=options)
 url_base = 'https://www.kabum.com.br/hardware/placa-de-video-vga/placa-de-video-nvidia'
 driver.get(url_base)
 
-# Espera o site carregar
-time.sleep(2)
+# Espera o elemento do site aparecer
+wait = WebDriverWait(driver, 10)
+wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'productCard')))
 
 # Extrai o número total de produtos
 qtd_texto = driver.find_element(By.ID, 'listingCount').text.strip()
@@ -31,7 +34,7 @@ for pagina in range(1, ultima_pagina + 1):
     print(f'Página {pagina}')
     url_pag = f'{url_base}?page_number={pagina}&page_size=20&facet_filters=&sort=most_searched'
     driver.get(url_pag)
-    time.sleep(2)
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'productCard')))
 
     produtos = driver.find_elements(By.CLASS_NAME, 'productCard')
 
